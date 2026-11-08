@@ -1,67 +1,66 @@
-#include<stdio.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-typedef struct node{
+typedef struct node {
     int data;
     struct node *left, *right;
-}node;
+} Node;
 
-node* createNode(int data){
-    node* newNode = (node*)malloc(sizeof(node));
+Node* createNode(int data){
+    Node* newNode = malloc(sizeof(Node));
     newNode->data = data;
     newNode->left = newNode->right = NULL;
-    return newNode;  
+    return newNode;
 }
 
-node* Insert(node* root, int data){
-    if (root == NULL){
-        root = createNode(data);
+Node* insert(Node *root, int x) {
+    if (root == NULL) {
+        root = createNode(x);
     }
-    else if (data < root->data){
-        root->left = Insert(root->left,data);
-    }
-    else{
-        root->right = Insert(root->right, data);
-    }
+    else if (x < root->data)
+        root->left = insert(root->left, x);
+    else
+        root->right = insert(root->right, x);
+
     return root;
 }
 
-void Search(node* root, int key){
-    if (root == NULL){
-        printf("Not found\n");
-        return;
-    }
-    else if (root->data == key){
-        printf("Key found\n");
-        return;
-    }
-    else if(key < root->data){
-        Search(root->left, key);
-    }
-    else{
-        Search(root->right, key);
-    }
+void search(Node *root, int x) {
+    if (root == NULL)
+        printf("Not Found");
+    else if (root->data == x)
+        printf("Found");
+    else if (x < root->data)
+        search(root->left, x);
+    else
+        search(root->right, x);
 }
 
-void inorder(node* root){
-        if(root == NULL){
-            return;
-        }
-        inorder(root->left);
-        printf("%d ",root->data);
-        inorder(root->right);
+void inorder(Node *root){
+    if(root == NULL){
+        return;
+    }
+    inorder(root->left);
+    printf("%d ", root->data);
+    inorder(root->right);
 }
 
-int main(){
-    node* root = NULL;
-    int n,x;
-    printf("Enter the number of elements: ");
+int main() {
+    Node *root = NULL;
+    int n, x, i;
+    printf("Enter No. of elements to insert into BST: ");
     scanf("%d", &n);
-    printf("Enter the elements: ");
-    for(int i = 0; i < n; i++){
-       scanf("%d",&x);
-       root = Insert(root, x); 
+
+    printf("Enter elements to insert into BST: ");
+    for (i = 0; i < n; i++) {
+        scanf("%d", &x);
+        root = insert(root, x);
     }
-    Search(root, 12);
+    printf("BST: ");
     inorder(root);
+    printf("\nEnter search element: ");
+    scanf("%d", &x);
+    search(root, x);
+
+    return 0;
 }

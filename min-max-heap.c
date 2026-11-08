@@ -2,28 +2,22 @@
 
 int heap[100], n = 0;
 
-void swap(int *a, int *b)
-{
+void swap(int *a, int *b){
     int t = *a;
     *a = *b;
     *b = t;
 }
 
-int level(int i)
-{
+int level(int i){
     int l = 0;
-
-    while (i > 0)
-    {
+    while (i > 0){
         i = (i - 1) / 2;
         l++;
     }
-
     return l;
 }
 
-void insert(int x)
-{
+void insert(int x){
     int i = n;
     heap[n++] = x;
 

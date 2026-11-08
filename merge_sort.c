@@ -1,5 +1,4 @@
 #include<stdio.h>
-#include<string.h>
 
 void merge(int a[], int l, int m, int r){
     int i,j,k;
